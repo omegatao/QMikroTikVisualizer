@@ -7,9 +7,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Quick WebEngineQuick Core REQUIRED)
+find_package(spdlog REQUIRED)
 
 qt_add_executable(appQMikroTikVisualizer
     main.cpp
+    iplookupinterface.h
+    iplookupgeoip2.h
+    iplookupgeoip2.cpp
 )
 
 #qt_add_qml_module(appQMikroTikVisualizer
@@ -20,6 +24,8 @@ qt_add_executable(appQMikroTikVisualizer
 
 set(resources_resource_files
     "resources/pages/echarts.js"
+    "resources/pages/echarts-gl.min.js"
+    "resources/pages/world.js"
     "resources/pages/index.html"
     "resources/pages/cpuInfo.html"
     "resources/pages/connectionInfo.html"
@@ -51,7 +57,7 @@ set_target_properties(appQMikroTikVisualizer PROPERTIES
 )
 
 target_link_libraries(appQMikroTikVisualizer
-    PRIVATE Qt6::Quick Qt::WebEngineQuick)
+    PRIVATE Qt6::Quick Qt::WebEngineQuick spdlog::spdlog_header_only maxminddb)
 
 install(TARGETS appQMikroTikVisualizer
     BUNDLE DESTINATION .

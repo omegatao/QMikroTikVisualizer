@@ -3,11 +3,21 @@
 
 #include <QLocale>
 #include <QTranslator>
+#include "iplookupgeoip2.h"
+#include "spdlog/spdlog.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    // temporary debug code ----> start
+    IPLookupGeoIP2 ipLookup;
+    ipLookup.loadDatabaseFile("GeoLite2-City.mmdb");
+    std::string targetIP{"8.8.8.8"};
+    auto ipInfo = ipLookup.getIPInfo(targetIP);
+    auto [coordinate, str1, str2] = *ipInfo;
+    spdlog::info("ip address: {}, Longitude: {}, Lattitude: {}", targetIP, coordinate.first, coordinate.second);
+    // temporary debug code ----> end
 
+    QGuiApplication app(argc, argv);
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
