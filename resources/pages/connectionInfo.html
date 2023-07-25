@@ -13,81 +13,115 @@
     <div id="main" style="width: 600px; height: 400px"></div>
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById("main"),
-                                null,{
-                                  renderer: 'canvas',
-                                  useDirtyRect: false
-                                });
+      var myChart = echarts.init(document.getElementById("main"), null, {
+        renderer: "canvas",
+        useDirtyRect: false,
+      });
 
       // 指定图表的配置项和数据
-      var ROOT_PATH = 'https://echarts.apache.org/examples';
+      var ROOT_PATH = "https://echarts.apache.org/examples";
       var uploadedDataURL = ROOT_PATH + "/data-gl/asset/data/flights.json";
-      //myChart.showLoading();
+      myChart.showLoading();
       options = {
-          geo3D: {
-            map: "world",
-            shading: "realistic",
-            silent: true,
-            environment: "#333",
-            realisticMaterial: {
-              roughness: 0.8,
-              metalness: 0,
-            },
-            postEffect: {
-              enable: true,
-            },
-            groundPlane: {
-              show: false,
-            },
-            light: {
-              main: {
-                intensity: 1,
-                alpha: 30,
-              },
-              ambient: {
-                intensity: 0,
-              },
-            },
-            viewControl: {
-              distance: 70,
-              alpha: 89,
-              panMouseButton: "left",
-              rotateMouseButton: "right",
-            },
-            itemStyle: {
-              color: "#000",
-            },
-            regionHeight: 0.5,
+        geo3D: {
+          map: "world",
+          shading: "realistic",
+          silent: true,
+          environment: "#333",
+          realisticMaterial: {
+            roughness: 0.8,
+            metalness: 0,
           },
-          series: [
-            {
-              type: "lines3D",
-              coordinateSystem: "geo3D",
-              effect: {
-                show: true,
-                trailWidth: 1,
-                trailOpacity: 0.5,
-                trailLength: 0.2,
-                constantSpeed: 5,
-              },
-              blendMode: "lighter",
-              lineStyle: {
-                width: 0.2,
-                opacity: 0.05,
-              },
-              data: [[[145.391881,-6.081689],[-17.425978,65.952328]],
-                    [[145.391881,-9.081689],[-20.425978,65.952328]]],
+          postEffect: {
+            enable: true,
+          },
+          groundPlane: {
+            show: false,
+          },
+          light: {
+            main: {
+              intensity: 1,
+              alpha: 30,
             },
-          ],
-        }
-        window.addEventListener("keydown", function () {
-          myChart.dispatchAction({
-            type: "lines3DToggleEffect",
-            seriesIndex: 0,
-          });
+            ambient: {
+              intensity: 0,
+            },
+          },
+          viewControl: {
+            distance: 70,
+            alpha: 89,
+            panMouseButton: "left",
+            rotateMouseButton: "right",
+          },
+          itemStyle: {
+            color: "#000",
+          },
+          regionHeight: 0.5,
+        },
+        series: [
+          {
+            type: "lines3D",
+            coordinateSystem: "geo3D",
+            effect: {
+              show: true,
+              trailWidth: 1,
+              trailOpacity: 0.5,
+              trailLength: 1.0,
+              constantSpeed: 50,
+            },
+            blendMode: "lighter",
+            lineStyle: {
+              width: 0.2,
+              opacity: 0.05,
+            },
+            data: [
+              [
+                [145.391881, -6.081689],
+                [-17.425978, 65.952328],
+              ],
+              [
+                [145.391881, -9.081689],
+                [-20.425978, 65.952328],
+              ],
+            ],
+          },
+        ],
+      };
+      window.addEventListener("keydown", function () {
+        myChart.dispatchAction({
+          type: "lines3DToggleEffect",
+          seriesIndex: 0,
         });
+      });
       // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(options);
+
+      //myChart.setOption(options);
+      function getRandomLongitude(){
+        return Math.random() * 360.0 - 180.0
+      }
+
+      function getRandomLattitude(){
+        return Math.random() * 170.0 - 85.0
+      }
+
+      function getRandomCoord(){
+        return [getRandomLongitude(), getRandomLattitude()]
+      }
+
+      function getRandomRoute(){
+        return [getRandomCoord(), getRandomCoord()]
+      }
+
+      function generateRandomCoord(){
+        options.series[0].data = [getRandomRoute(), getRandomRoute(), getRandomRoute()]
+        console.log(options)
+        myChart.setOption(options)
+      }
+      generateRandomCoord()
+      myChart.hideLoading()
+
+
+      setInterval(generateRandomCoord, 3000)
     </script>
   </body>
 </html>

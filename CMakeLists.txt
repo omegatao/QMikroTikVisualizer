@@ -9,11 +9,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.2 COMPONENTS Quick WebEngineQuick Core REQUIRED)
 find_package(spdlog REQUIRED)
 
+add_subdirectory(thirdParty/tikpp)
+
 qt_add_executable(appQMikroTikVisualizer
     main.cpp
     iplookupinterface.h
     iplookupgeoip2.h
     iplookupgeoip2.cpp
+    routerinfohandler.h
+    routerinfohandler.cpp
 )
 
 #qt_add_qml_module(appQMikroTikVisualizer
@@ -36,6 +40,7 @@ set(resources_resource_files
     "resources/qml/GridOne.qml"
     "resources/qml/CPUInfoPage.qml"
     "resources/qml/ConnectionInfoPage.qml"
+    "resources/qml/SettingPage.qml"
 )
 
 qt_add_resources(appQMikroTikVisualizer "resources"
@@ -57,7 +62,7 @@ set_target_properties(appQMikroTikVisualizer PROPERTIES
 )
 
 target_link_libraries(appQMikroTikVisualizer
-    PRIVATE Qt6::Quick Qt::WebEngineQuick spdlog::spdlog_header_only maxminddb)
+    PRIVATE Qt6::Quick Qt::WebEngineQuick spdlog::spdlog_header_only maxminddb tikpp)
 
 install(TARGETS appQMikroTikVisualizer
     BUNDLE DESTINATION .

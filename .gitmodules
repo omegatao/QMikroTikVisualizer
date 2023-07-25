@@ -1,0 +1,3 @@
+[submodule "thirdParty/tikpp"]
+	path = thirdParty/tikpp
+	url = https://github.com/aymanalqadhi/tikpp

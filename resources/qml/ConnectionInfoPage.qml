@@ -2,10 +2,10 @@ import QtQuick
 import QtWebEngine
 
 Item {
-    id: echartsView
+    id: connectionView
     WebEngineView{
         anchors.fill: parent
         url: "qrc:/pages/connectionInfo.html"
-        id: webView
+        id: connectionWebView
     }
 }

@@ -6,6 +6,7 @@ Item {
         id: listModel
         ListElement{name: "CPU info"; page: "CPUInfoPage.qml"}
         ListElement{name: "Connection info"; page: "ConnectionInfoPage.qml"}
+        ListElement{name: "Setting"; page: "SettingPage.qml"}
     }
 
     GridView{
