@@ -4,7 +4,9 @@
 #include <QLocale>
 #include <QTranslator>
 #include "iplookupgeoip2.h"
+#include "routerinfohandler.h"
 #include "spdlog/spdlog.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +17,9 @@ int main(int argc, char *argv[])
     auto ipInfo = ipLookup.getIPInfo(targetIP);
     auto [coordinate, str1, str2] = *ipInfo;
     spdlog::info("ip address: {}, Longitude: {}, Lattitude: {}", targetIP, coordinate.first, coordinate.second);
+
+
+    RouterInfoHandler handler1;
     // temporary debug code ----> end
 
     QGuiApplication app(argc, argv);

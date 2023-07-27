@@ -17,7 +17,7 @@ signals:
 
 private:
     tikpp::io_context io{};
-    std::shared_ptr<tikpp::basic_api> api;
+    std::shared_ptr<tikpp::api_te> m_api;
 
 };
 
